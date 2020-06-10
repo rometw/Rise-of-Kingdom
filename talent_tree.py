@@ -1,3 +1,4 @@
+#!/usr/bin/env python
 
 def talent_tree(level,build):
         defense = [self.all_defense(0.5),self.all_attack(0.5),self.all_attack(0.5),self.all_attack(0.5),...
