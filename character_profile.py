@@ -3,6 +3,10 @@ from base_stats_table import set_base_stats
 from city_themes import set_city_buffs
 from vip_table import set_vip_buffs
 from civilization_table import set_civ_buffs
+from march_generator import March
+
+#Buffs are sent in list in the following form:
+#[ia,id,ih,ca,cd,ch,aa,ad,ah,sa,sd,sh,skill,rally,counter]
 
 class Character:
     def __init__(self,civ):
@@ -16,6 +20,52 @@ class Character:
         self.civilization(civ)
         self.skin = ''
         self.title = ''
+        self.march_count = 0
+
+        
+    def launch_field_march(self,troop_count,primary,*secondary):
+        #self.march_count+=1
+        if not hasattr(self,'march1'):
+            march = March(troop_count,primary,secondary)
+            self.march1 = [march,1]
+            print('March launched as March 1.  reference self.march1[0] for object')
+        elif not hasattr(self,'march2'):
+            self.march2 = [march,2]
+            print('March launched as March 2.  reference self.march2[0] for object')
+        elif not hasattr(self,'march3'):
+            self.march3 = [march,3]
+            print('March launched as March 3.  reference self.march3[0] for object')
+        elif not hasattr(self,'march4'):
+            self.march4 = [march,4]
+            print('March launched as March 4.  reference self.march4[0] for object')
+        elif not hasattr(self,'march5'):
+            self.march5 = [march,5]
+            print('March launched as March 5.  reference self.march5[0] for object')
+        else:
+            print('Only allowed 5 marches in the field, return a march[0] for object')
+            return []
+        
+    
+    def return_field_march(self,march_num):
+        if march_num == 1:
+            print('Commander ',self.march1[0].primary, 'with ', self.march1[0].troop,' troops has returned.')
+            delattr(self,'march1')
+        elif march_num == 2:
+            print('Commander ',self.march2[0].primary, 'with ', self.march1[0].troop,' troops has returned.')
+            delattr(self,'march2')
+        elif march_num == 3:
+            print('Commander ',self.march3[0].primary, 'with ', self.march1[0].troop,' troops has returned.')
+            delattr(self,'march3')
+        elif march_num == 4:
+            print('Commander ',self.march4[0].primary, 'with ', self.march1[0].troop,' troops has returned.')
+            delattr(self,'march4')
+        elif march_num == 5:
+            print('Commander ',self.march5[0].primary, 'with ', self.march1[0].troop,' troops has returned.')
+            delattr(self,'march5')
+        else:
+            print('This march does not belong to this character')
+        return
+        
         
     def city_theme_buffs(self,skin):
         self.skin = skin
@@ -145,3 +195,5 @@ class Character:
             self.buffs_counter = 0
         else:
             self.buffs_counter += buffs
+    
+
