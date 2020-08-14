@@ -2,6 +2,7 @@
 from character_profile import Character
 import commander
 import march_generator
+import battle_calculator
 
 #########################################################################
 #########################################################################
@@ -26,7 +27,7 @@ import march_generator
 def main():
     primary = 'Richard'
     secondary = 'Charles'
-    build_Richard = [1,0,0,0]
+    build_Richard = [5,5,5,5]
     build_Charles = [1,0,0,0]
     star = 1
     tech = [70,70,40,70,70,40,70,70,40]
@@ -36,21 +37,34 @@ def main():
     building = [2,2,6,2,2,6,2,2,6]
     vip = 15
     troop_amount = 200000
-    level = 10
+    defense_build = [1]*50
+    infantry_build = [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+    garrison_build = [0]
+    talent_tree = [defense_build,infantry_build,garrison_build]
 
 
 
-    kevin = Character('Ottoman')
+###Character Kevin
+    kevin = Character('Germany')
     kevin.city_theme_buffs('No Place Like Home')
-    kevin.change_civ('Germany')
-    rich = commander.Richard()
-    rich.skill_build(build_Richard)
-    rich.build_talent_tree(level,"Defensive Inf")
+    kevinrich = commander.Richard(build_Richard)
+    kevinrich.build_talent_tree(talent_tree,1)
+    #rich.build_talent_tree(infantry_build,"Infantry")
     #march1 = march_generator.March(troop_amount,rich)
-    kevin.launch_field_march(troop_amount,rich)
-    #print(march1.primary,march1.primary.print_talent_tree())
+    kevin.launch_field_march(troop_amount,kevinrich)
+    
+    print(kevin.march1)
+    #kevin.return_field_march(kevin.march1[1])
+
+#### Character Coco
+    coco = Character('Ottoman')
+    coco.city_theme_buffs('No Place Like Home')
+    cocorich = commander.Richard(build_Richard)
+    cocorich.build_talent_tree(talent_tree,1)
+    coco.launch_field_march(troop_amount,cocorich)
     
     
+    rich_rich_battle = battle_calculator.Battle(kevin.march1[0],coco.march1[0])
     
     
 

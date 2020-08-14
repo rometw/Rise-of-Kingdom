@@ -25,8 +25,15 @@ class Character:
         
     def launch_field_march(self,troop_count,primary,*secondary):
         #self.march_count+=1
+        march = March(troop_count,primary,secondary)
+        march.set_base_stats(self)
+        march.set_character_buffs(self)
+        march.add_comm_buffs(primary)
+        march.add_comm_talents(primary)
+        if secondary:
+            march.add_buffs(secondary)
+        
         if not hasattr(self,'march1'):
-            march = March(troop_count,primary,secondary)
             self.march1 = [march,1]
             print('March launched as March 1.  reference self.march1[0] for object')
         elif not hasattr(self,'march2'):
@@ -48,24 +55,25 @@ class Character:
     
     def return_field_march(self,march_num):
         if march_num == 1:
-            print('Commander ',self.march1[0].primary, 'with ', self.march1[0].troop,' troops has returned.')
+            print('Commander(s) ',self.march1[0].name_of_comm(), 'with ', self.march1[0].troop,' troops has returned.')
             delattr(self,'march1')
         elif march_num == 2:
-            print('Commander ',self.march2[0].primary, 'with ', self.march1[0].troop,' troops has returned.')
+            print('Commander(s) ',self.march2[0].primary, 'with ', self.march1[0].troop,' troops has returned.')
             delattr(self,'march2')
         elif march_num == 3:
-            print('Commander ',self.march3[0].primary, 'with ', self.march1[0].troop,' troops has returned.')
+            print('Commander(s) ',self.march3[0].primary, 'with ', self.march1[0].troop,' troops has returned.')
             delattr(self,'march3')
         elif march_num == 4:
-            print('Commander ',self.march4[0].primary, 'with ', self.march1[0].troop,' troops has returned.')
+            print('Commander(s) ',self.march4[0].primary, 'with ', self.march1[0].troop,' troops has returned.')
             delattr(self,'march4')
         elif march_num == 5:
-            print('Commander ',self.march5[0].primary, 'with ', self.march1[0].troop,' troops has returned.')
+            print('Commander(s) ',self.march5[0].primary, 'with ', self.march1[0].troop,' troops has returned.')
             delattr(self,'march5')
         else:
             print('This march does not belong to this character')
         return
         
+    
         
     def city_theme_buffs(self,skin):
         self.skin = skin
